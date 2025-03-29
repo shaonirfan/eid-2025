@@ -366,94 +366,80 @@
         </div>
     </div>
 
-      <!-- === JAVASCRIPT START === -->
+         <!-- === JAVASCRIPT START === -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Get modal elements
             const modal = document.getElementById('salamiModal');
-            // === NEW CODE: Get Name from URL Parameter ===
-    const recipientNameElement = document.getElementById('recipientName');
-    const defaultName = recipientNameElement ? recipientNameElement.textContent : "Friend"; // Store default
+            const modalContent = modal ? modal.querySelector('.modal-content') : null;
+            const salamiButton = document.getElementById('salamiButton');
+            const closeButton = modal ? modal.querySelector('.close-button') : null;
+            const recipientNameElement = document.getElementById('recipientName');
+            const defaultName = recipientNameElement ? recipientNameElement.textContent : "Friend"; // Store default
 
-    try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const nameFromUrl = urlParams.get('name'); // Try to get 'name' parameter
+            // --- Get Name from URL Parameter ---
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const nameFromUrl = urlParams.get('name');
 
-        if (recipientNameElement && nameFromUrl) { // Check if element exists and name was found
-            // Decode URL-encoded characters (like %20 for space) and set text
-            recipientNameElement.textContent = decodeURIComponent(nameFromUrl.replace(/\+/g, ' '));
-        } else if (recipientNameElement) {
-             // If no 'name' param, keep the default name already in the H2
-             // Optional: could explicitly set recipientNameElement.textContent = defaultName; but it's already there.
-             console.log("No 'name' parameter found in URL, using default.");
-        }
-    } catch (e) {
-        console.error("Error processing URL parameters:", e);
-        if (recipientNameElement) {
-             recipientNameElement.textContent = defaultName; // Fallback on error
-        }
-    }
-    // === END OF NEW CODE ===
+                if (recipientNameElement && nameFromUrl) {
+                    recipientNameElement.textContent = decodeURIComponent(nameFromUrl.replace(/\+/g, ' '));
+                } else if (recipientNameElement) {
+                    // Using default name already present in H2
+                }
+            } catch (e) {
+                console.error("Error processing URL parameters:", e);
+                if (recipientNameElement) {
+                     recipientNameElement.textContent = defaultName; // Fallback
+                }
+            }
+            // --- End Get Name ---
+
 
             // Function to open the modal
             const openModal = () => {
                 if (modal && modalContent) {
-                   // Reset any closing animation states before showing
                    modalContent.classList.remove('modal-closing');
-                   modalContent.style.animation = ''; // Clear previous animation styles
-
-                   modal.style.display = 'block'; // Make modal visible FIRST
-
-                   // Force reflow to ensure animation restarts correctly
+                   modalContent.style.animation = '';
+                   modal.style.display = 'block';
                    void modalContent.offsetWidth;
-
-                   // Apply opening animation
                    modalContent.style.animation = 'scaleUpModal 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards';
                 } else if (modal) {
-                    modal.style.display = 'block'; // Fallback if content missing
+                    modal.style.display = 'block';
                 }
             };
 
-            // *** UPDATED Function to close the modal ***
+            // Function to close the modal
             const closeModal = () => {
                  if (modal && modalContent) {
-                    // Add class to trigger closing animation
                     modalContent.classList.add('modal-closing');
-
-                    // Use setTimeout for reliability - hide after animation duration
                     setTimeout(() => {
                         modal.style.display = 'none';
-                        // Clean up the class AFTER hiding
                         modalContent.classList.remove('modal-closing');
-                         // Optional: Explicitly clear animation style if needed for next open
-                         // modalContent.style.animation = '';
-                    }, 300); // Match the CSS animation duration (0.3s = 300ms)
+                    }, 300); // Match CSS animation duration
 
                  } else if (modal) {
-                     // Fallback if modalContent somehow not found
                      modal.style.display = 'none';
                  }
             };
 
-            // Event listener for the salami button
+            // --- Event Listeners (Check if elements exist before adding) ---
             if (salamiButton) {
                 salamiButton.addEventListener('click', openModal);
             } else { console.error("Salami button not found!"); }
 
-            // Event listener for the close button
             if (closeButton) {
                 closeButton.addEventListener('click', closeModal);
             } else { console.error("Close button not found!"); }
 
-            // Event listener to close modal if clicked outside the content (on the overlay)
-            window.addEventListener('click', (event) => {
-                // Check if the modal exists and the click target is the modal overlay itself
-                if (modal && event.target === modal && modal.style.display === 'block') {
-                    closeModal();
-                }
-            });
+            // Listener for overlay click
+             window.addEventListener('click', (event) => {
+                 if (modal && event.target === modal && modal.style.display === 'block') {
+                     closeModal();
+                 }
+             });
 
-            // Close modal with Escape key
+            // Listener for Escape key
              window.addEventListener('keydown', (event) => {
                  if (event.key === 'Escape' && modal && modal.style.display === 'block') {
                      closeModal();
