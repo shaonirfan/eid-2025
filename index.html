@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid Mubarak!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
+    <!-- === CSS START === -->
+    <style>
+        /* --- Basic Setup & Variables --- */
+        :root {
+            --bg-color-1: #16222a;
+            --bg-color-2: #3a6073;
+            --moon-color: #FFD700; /* Gold */
+            --star-color: #f0f8ff; /* AliceBlue for softer stars */
+            --text-color: #e0e0e0;
+            --card-bg: rgba(44, 62, 80, 0.2);
+            --heading-font: 'Lobster Two', sans-serif;
+            --body-font: "Josefin Sans", sans-serif;
+            /* Sparkle Colors */
+            --sparkle-color-1: #FFD700; /* Gold */
+            --sparkle-color-2: #FFFFFF; /* White */
+            --sparkle-color-3: #AFEEEE; /* PaleTurquoise */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-color-1), var(--bg-color-2), #2c3e50, var(--bg-color-1));
+            background-size: 400% 400%;
+            animation: animateGradient 25s ease infinite;
+            position: relative;
+        }
+
+        @keyframes animateGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Star Layers (Background) --- */
+        .stars-layer1,
+        .stars-layer2,
+        .stars-layer3 {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .stars-layer1::before { /* Small */
+             content: ''; position: absolute; width: 1px; height: 1px; background: transparent;
+             box-shadow: 10vw 20vh 0 0 var(--star-color), 80vw 30vh 0 0 var(--star-color), 30vw 70vh 0 0 var(--star-color), 60vw 90vh 0 0 var(--star-color), 5vw 50vh 0 0 var(--star-color), 95vw 60vh 0 0 var(--star-color), 40vw 10vh 0 0 var(--star-color), 70vw 85vh 0 0 var(--star-color);
+             animation: twinkle 3s infinite alternate ease-in-out 0s;
+        }
+         .stars-layer2::before { /* Medium */
+             content: ''; position: absolute; width: 2px; height: 2px; background: transparent;
+             box-shadow: 25vw 15vh 0 0 var(--star-color), 75vw 45vh 0 0 var(--star-color), 50vw 80vh 0 0 var(--star-color), 15vw 65vh 0 0 var(--star-color), 85vw 5vh 0 0 var(--star-color);
+             animation: twinkle 2s infinite alternate ease-in-out 0.5s;
+         }
+         .stars-layer3::before { /* Large */
+             content: ''; position: absolute; width: 3px; height: 3px; background: transparent;
+             box-shadow: 45vw 25vh 0 0 var(--star-color), 65vw 75vh 0 0 var(--star-color), 90vw 40vh 0 0 var(--star-color), 10vw 80vh 0 0 var(--star-color);
+              animation: twinkle 1.5s infinite alternate ease-in-out 1s;
+         }
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 0.8; transform: scale(1); }
+        }
+
+        /* --- Main Card Container --- */
+        .card-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            animation: fadeInCard 1.5s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeInCard {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* --- Card Header --- */
+        .card-header {
+            padding: 45px 20px 30px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        .card-header h1 {
+            font-family: var(--heading-font);
+            font-size: 3.8em;
+            font-weight: 700; /* Lobster Two can be bolder */
+            color: var(--moon-color);
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+            margin-bottom: 8px;
+            line-height: 1.1;
+            animation: glow 2.5s infinite alternate;
+        }
+         @keyframes glow {
+             from { text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); }
+             to { text-shadow: 0 0 20px rgba(255, 215, 0, 0.9); }
+         }
+        .card-header h2 {
+            font-family: var(--body-font);
+            font-size: 1.5em;
+            font-weight: 400;
+            color: var(--text-color);
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Moon --- */
+        .moon {
+            width: 75px; height: 75px;
+            border-radius: 50%;
+            box-shadow: inset -18px 5px 0 0 var(--moon-color), 0 0 25px rgba(255, 248, 220, 0.5);
+            position: absolute; top: 25px; right: 35px;
+            transform: rotate(-15deg); opacity: 0.9;
+            animation: subtlePulse 4s infinite ease-in-out;
+        }
+        @keyframes subtlePulse {
+             0%, 100% { opacity: 0.8; transform: rotate(-15deg) scale(1); }
+             50% { opacity: 1.0; transform: rotate(-15deg) scale(1.05); }
+        }
+
+        /* --- Card Body --- */
+        .card-body { padding: 35px; }
+        .card-body p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 35px;
+            color: #f0f0f0;
+        }
+
+        /* --- Salami Button --- */
+        .salami-button {
+            background: linear-gradient(45deg, var(--moon-color), #ffec8b);
+            color: #444; border: none;
+            padding: 12px 30px; border-radius: 50px;
+            font-size: 1.05em; font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            letter-spacing: 0.5px;
+        }
+        .salami-button:hover {
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* --- Modal Styles --- */
+        .modal {
+            display: none; position: fixed; z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
+            backdrop-filter: blur(8px); /* More blur */
+            animation: fadeInModal 0.4s ease;
+        }
+        @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+
+        .modal-content {
+            background-color: #34495e;
+            margin: 10% auto; /* Slightly higher */
+            padding: 40px; /* Increased padding */
+            border: 1px solid rgba(255, 215, 0, 0.6); /* Stronger border */
+            border-radius: 15px; /* More rounded */
+            width: 90%; /* Responsive width */
+            max-width: 480px; /* <<< INCREASED MAX WIDTH */
+            text-align: center;
+            position: relative; /* Needed for absolute children like sparkles */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Stronger shadow */
+            animation: scaleUpModal 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28); /* Bounce effect */
+            overflow: hidden; /* Contain sparkles */
+        }
+        @keyframes scaleUpModal { /* Added bounce */
+            0% { transform: scale(0.7); opacity: 0; }
+            70% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-content h3 {
+            font-family: var(--heading-font); color: var(--moon-color);
+            margin-bottom: 25px; /* More space */
+            font-size: 2.2em; /* Larger */
+            font-weight: 700;
+        }
+        .modal-content img {
+            max-width: 90%; /* <<< INCREASED IMAGE SIZE */
+            height: auto; border-radius: 10px; /* More rounded */
+            margin-bottom: 25px; /* More space */
+            border: 4px solid var(--moon-color); /* Thicker border */
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); /* Glow effect on image */
+        }
+        .modal-content p {
+            font-size: 1.1em; /* Slightly larger */
+            color: var(--text-color); line-height: 1.6;
+            margin-bottom: 10px; /* Spacing between paragraphs */
+        }
+         .modal-content p:last-of-type {
+             margin-bottom: 0; /* Remove margin from last paragraph */
+         }
+
+        .close-button {
+            color: #ccc; position: absolute; top: 15px; right: 20px;
+            font-size: 32px; /* Larger */ font-weight: bold;
+            cursor: pointer; transition: color 0.3s ease, transform 0.3s ease;
+            z-index: 1010; /* Ensure button is above sparkles */
+        }
+        .close-button:hover,
+        .close-button:focus { color: #fff; transform: scale(1.1); }
+
+
+        /* === Sparkle Effect START === */
+        .sparkle-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            pointer-events: none; /* Allow clicks through */
+            z-index: 1005; /* Above background, below text/button */
+        }
+
+        .sparkle-container::before,
+        .sparkle-container::after {
+            content: '';
+            position: absolute;
+            top: 50%; /* Start near center */
+            left: 50%;
+            width: 4px; /* Size of individual sparkle */
+            height: 4px;
+            background: transparent; /* Use box-shadow for shapes */
+            /* Multiple shadows create multiple particles */
+            /* Format: x-offset y-offset blur size color */
+             box-shadow:
+                /* Group 1 (Gold) */
+                -50px -60px 0 0px var(--sparkle-color-1), 50px 60px 0 0px var(--sparkle-color-1),
+                0px -80px 0 1px var(--sparkle-color-1), 0px 80px 0 1px var(--sparkle-color-1),
+                -90px 10px 0 0px var(--sparkle-color-1), 90px -10px 0 0px var(--sparkle-color-1),
+                /* Group 2 (White) */
+                -40px 50px 0 1px var(--sparkle-color-2), 40px -50px 0 1px var(--sparkle-color-2),
+                -70px -30px 0 0px var(--sparkle-color-2), 70px 30px 0 0px var(--sparkle-color-2),
+                /* Group 3 (Turquoise) */
+                20px -90px 0 1px var(--sparkle-color-3), -20px 90px 0 1px var(--sparkle-color-3),
+                100px 0px 0 0px var(--sparkle-color-3), -100px 0px 0 0px var(--sparkle-color-3);
+
+            /* Apply animation */
+            animation: sparkle-effect 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            opacity: 0; /* Start invisible */
+        }
+
+        /* Stagger the second set of sparkles slightly */
+        .sparkle-container::after {
+            transform: rotate(20deg); /* Slightly rotate second set */
+            animation-delay: 0.1s; /* Small delay */
+        }
+
+        @keyframes sparkle-effect {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            80% {
+                 /* Move outwards and fade */
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 1;
+            }
+            100% {
+                 /* Finish larger and faded out */
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+        /* === Sparkle Effect END === */
+
+
+        /* --- Responsiveness --- */
+        @media (max-width: 600px) {
+            .card-header h1 { font-size: 2.8em; }
+            .card-header h2 { font-size: 1.3em; }
+            .card-body p { font-size: 1em; }
+            .moon { width: 60px; height: 60px; box-shadow: inset -12px 3px 0 0 var(--moon-color), 0 0 15px rgba(255, 248, 220, 0.4); top: 15px; right: 20px; }
+            .modal-content { margin: 20% auto; width: 90%; padding: 30px; max-width: 90%; } /* Adjusted margin and padding */
+            .modal-content h3 { font-size: 1.8em; }
+            .modal-content img { max-width: 85%; border-width: 3px;}
+            /* Adjust sparkle density/size on mobile if needed */
+             .sparkle-container::before, .sparkle-container::after { width: 3px; height: 3px; /* Smaller sparkles */ }
+        }
+
+        /* Optional Closing Animation for Modal */
+        @keyframes scaleDownModal {
+             from { transform: scale(1); opacity: 1; }
+             to { transform: scale(0.8); opacity: 0; }
+        }
+        .modal.modal-closing .modal-content { /* Target content for closing */
+            animation: scaleDownModal 0.3s ease-in forwards !important; /* Override opening animation */
+        }
+    </style>
+    <!-- === CSS END === -->
+
+</head>
+<body>
+    <!-- Star Layers -->
+    <div class="stars-layer1"></div>
+    <div class="stars-layer2"></div>
+    <div class="stars-layer3"></div>
+
+    <!-- Card Container -->
+    <div class="card-container">
+        <header class="card-header">
+            <div class="moon"></div>
+            <h1>Eid Mubarak</h1>
+            <!-- !!! EDIT THIS NAME !!! -->
+            <h2 id="recipientName">SHAON IRFAN</h2>
+            <!-- !!! EDIT THE NAME ABOVE !!! -->
+        </header>
+        <main class="card-body">
+            <p>
+                On this joyous occasion of Eid, may the glow of the moon illuminate your path
+                and may Allah's blessings fill your life with happiness, peace, and prosperity.
+                Wishing you and your loved ones a wonderful celebration!
+            </p>
+            <button id="salamiButton" class="salami-button">
+                A Little Eidi For You?
+            </button>
+        </main>
+    </div>
+
+    <!-- Salami Modal -->
+    <div id="salamiModal" class="modal">
+        <div class="modal-content">
+            <!-- Sparkle container is positioned absolutely inside -->
+            <div class="sparkle-container"></div>
+            <span class="close-button">×</span> <!-- Using HTML entity for '×' -->
+            <h3>Eidi Time!</h3>
+            <img src="https://www.bb.org.bd/images/currmuse/tk500_2022_f.jpg" alt="Eid Salami - Bangladeshi Taka" id="salamiImage">
+            <p>Virtual Salami! Hope this brings a smile to your face! 😊</p>
+	        <p>For real Salami, inbox😉</p>
+        </div>
+    </div>
+
+      <!-- === JAVASCRIPT START === -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get modal elements
+            const modal = document.getElementById('salamiModal');
+            const modalContent = modal ? modal.querySelector('.modal-content') : null; // Get content for animations
+            const salamiButton = document.getElementById('salamiButton');
+            const closeButton = modal ? modal.querySelector('.close-button') : null;
+
+            // Function to open the modal
+            const openModal = () => {
+                if (modal && modalContent) {
+                   // Reset any closing animation states before showing
+                   modalContent.classList.remove('modal-closing');
+                   modalContent.style.animation = ''; // Clear previous animation styles
+
+                   modal.style.display = 'block'; // Make modal visible FIRST
+
+                   // Force reflow to ensure animation restarts correctly
+                   void modalContent.offsetWidth;
+
+                   // Apply opening animation
+                   modalContent.style.animation = 'scaleUpModal 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards';
+                } else if (modal) {
+                    modal.style.display = 'block'; // Fallback if content missing
+                }
+            };
+
+            // *** UPDATED Function to close the modal ***
+            const closeModal = () => {
+                 if (modal && modalContent) {
+                    // Add class to trigger closing animation
+                    modalContent.classList.add('modal-closing');
+
+                    // Use setTimeout for reliability - hide after animation duration
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        // Clean up the class AFTER hiding
+                        modalContent.classList.remove('modal-closing');
+                         // Optional: Explicitly clear animation style if needed for next open
+                         // modalContent.style.animation = '';
+                    }, 300); // Match the CSS animation duration (0.3s = 300ms)
+
+                 } else if (modal) {
+                     // Fallback if modalContent somehow not found
+                     modal.style.display = 'none';
+                 }
+            };
+
+            // Event listener for the salami button
+            if (salamiButton) {
+                salamiButton.addEventListener('click', openModal);
+            } else { console.error("Salami button not found!"); }
+
+            // Event listener for the close button
+            if (closeButton) {
+                closeButton.addEventListener('click', closeModal);
+            } else { console.error("Close button not found!"); }
+
+            // Event listener to close modal if clicked outside the content (on the overlay)
+            window.addEventListener('click', (event) => {
+                // Check if the modal exists and the click target is the modal overlay itself
+                if (modal && event.target === modal && modal.style.display === 'block') {
+                    closeModal();
+                }
+            });
+
+            // Close modal with Escape key
+             window.addEventListener('keydown', (event) => {
+                 if (event.key === 'Escape' && modal && modal.style.display === 'block') {
+                     closeModal();
+                 }
+             });
+
+        });
+    </script>
+    <!-- === JAVASCRIPT END === -->
+
+</body>
+</html>
