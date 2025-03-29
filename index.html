@@ -371,9 +371,29 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Get modal elements
             const modal = document.getElementById('salamiModal');
-            const modalContent = modal ? modal.querySelector('.modal-content') : null; // Get content for animations
-            const salamiButton = document.getElementById('salamiButton');
-            const closeButton = modal ? modal.querySelector('.close-button') : null;
+            // === NEW CODE: Get Name from URL Parameter ===
+    const recipientNameElement = document.getElementById('recipientName');
+    const defaultName = recipientNameElement ? recipientNameElement.textContent : "Friend"; // Store default
+
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const nameFromUrl = urlParams.get('name'); // Try to get 'name' parameter
+
+        if (recipientNameElement && nameFromUrl) { // Check if element exists and name was found
+            // Decode URL-encoded characters (like %20 for space) and set text
+            recipientNameElement.textContent = decodeURIComponent(nameFromUrl.replace(/\+/g, ' '));
+        } else if (recipientNameElement) {
+             // If no 'name' param, keep the default name already in the H2
+             // Optional: could explicitly set recipientNameElement.textContent = defaultName; but it's already there.
+             console.log("No 'name' parameter found in URL, using default.");
+        }
+    } catch (e) {
+        console.error("Error processing URL parameters:", e);
+        if (recipientNameElement) {
+             recipientNameElement.textContent = defaultName; // Fallback on error
+        }
+    }
+    // === END OF NEW CODE ===
 
             // Function to open the modal
             const openModal = () => {
